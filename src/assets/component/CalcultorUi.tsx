@@ -1,29 +1,63 @@
-export default function Calculator(){
-    function handleClick(){
-        return
+import { useState } from "react";
+import {evaluate} from "mathjs";
+
+export default function Calculator() {
+    const [input, setInput] = useState("")
+    function handleClick(value: string){
+        if(value==="AC"){
+            setInput("")
+        } else if(value==="="){
+            try{
+                const result =evaluate(input).toString();
+                setInput(result)
+            } catch (error) {
+                setInput("error")
+            }
+        }else{
+            setInput((prevValue)=>prevValue + value)
+        }
     }
-    return(
-      <div className="grid grid-cols-4 grid-rows-6 w-96 h-96 mt-2 min-h-screen mx-auto">
-        <div className="col-span-4 row-span-1 bg-gray-800 text-end text-white" ></div>
-        <button className="bg-gray-300 border border-black text-3xl font-bold">AC</button>
-        <button className="bg-gray-300 border border-black text-3xl font-bold">+/-</button>
-        <button className="bg-gray-300 border border-black text-3xl font-bold">%</button>
-        <button className="bg-amber-600 border border-black text-3xl font-bold">&divide;</button>
-        <button className="bg-gray-300 border border-black text-3xl font-bold">7</button>
-        <button className="bg-gray-300 border border-black text-3xl font-bold">8</button>
-        <button className="bg-gray-300 border border-black text-3xl font-bold">9</button>
-        <button className="bg-amber-600 border border-black text-3xl font-bold">&times;</button>
-        <button className="bg-gray-300 border border-black text-3xl font-bold">4</button>
-        <button className="bg-gray-300 border border-black text-3xl font-bold">5</button>
-        <button className="bg-gray-300 border border-black text-3xl font-bold">6</button>
-        <button className="bg-amber-600 border border-black text-3xl font-bold">-</button>
-        <button className="bg-gray-300 border border-black text-3xl font-bold">1</button>
-        <button className="bg-gray-300 border border-black text-3xl font-bold">2</button>
-        <button className="bg-gray-300 border border-black text-3xl font-bold">3</button>
-        <button className="bg-amber-600 border border-black text-3xl font-bold">+</button>
-        <button className="col-span-2 border border-black text-3xl font-bold">0</button>
-        <button className="bg-gray-300 border border-black text-3xl font-bold">.</button>
-        <button className="bg-amber-600 border border-black text-3xl font-bold">=</button>
+  const buttons = [
+    "AC",
+    "+/-",
+    "%",
+    "÷",
+    "7",
+    "8",
+    "9",
+    "*",
+    "4",
+    "5",
+    "6",
+    "-",
+    "1",
+    "2",
+    "3",
+    "+",
+    "0",
+    ".",
+    "=",
+  ];
+  return (
+    <div className="grid grid-cols-4 grid-rows-6 mx-auto mt-5">
+      <div>{input || 0}</div>
+      <div className="grid grid-cols-4 grid-rows-6">
+        {buttons.map((value, index) => {
+          return (
+            <button
+              key={index}
+              className={`border border-black text-2xl ${value==="0"?"col-span-2":""} ${
+                ["=", "+", "-", "*", "÷"].includes(value)
+                  ? "bg-amber-700"
+                  : "bg-gray-500"
+              }`}
+              onClick={()=>handleClick(value)}
+            >
+              {value}
+            </button>
+          );
+        })}
       </div>
-    )
+    </div>
+  );
 }
