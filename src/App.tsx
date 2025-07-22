@@ -1,7 +1,9 @@
+import Calculator from "./assets/component/CalcultorUi";
+
 export default function App(){
   return(
-    <h1>There is nothing yet😂😂😂
-
-    </h1>
+    <>
+    <Calculator/>
+    </>
   )
 }
