@@ -39,8 +39,8 @@ export default function Calculator() {
     "=",
   ];
   return (
-    <div className="grid grid-cols-4 grid-rows-6 mx-auto mt-5">
-      <div>{input || 0}</div>
+    <div className="mx-auto mt-5 w-96 h-9">
+      <div className="text-end bg-gray-500">{input || 0}</div>
       <div className="grid grid-cols-4 grid-rows-6">
         {buttons.map((value, index) => {
           return (
